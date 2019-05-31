@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coffeterija", "coffeterija\coffeterija.csproj", "{B7E1BD37-FBC5-48BF-B943-28767CA89852}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coffeterija.dataaccess", "coffeterija.dataaccess\coffeterija.dataaccess.csproj", "{D21CD012-DFFB-4D81-B038-CA7B134FAE9C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7E1BD37-FBC5-48BF-B943-28767CA89852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7E1BD37-FBC5-48BF-B943-28767CA89852}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7E1BD37-FBC5-48BF-B943-28767CA89852}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7E1BD37-FBC5-48BF-B943-28767CA89852}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D21CD012-DFFB-4D81-B038-CA7B134FAE9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D21CD012-DFFB-4D81-B038-CA7B134FAE9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D21CD012-DFFB-4D81-B038-CA7B134FAE9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D21CD012-DFFB-4D81-B038-CA7B134FAE9C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
