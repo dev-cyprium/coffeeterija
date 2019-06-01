@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace coffeterija.dataaccess
 {
@@ -35,42 +33,35 @@ namespace coffeterija.dataaccess
                 .WithMany(u => u.Favorites)
                 .HasForeignKey(fav => fav.UserId);
 
-            //modelBuilder.Entity<Favorites>()
-            //.Property(f => f.CreatedAt)
-            //.HasDefaultValueSql("NOW()");
 
-            //AutomaticDateCreation(modelBuilder);
-            AutomaticDate<Coffee>(modelBuilder);
-            AutomaticDate<CoffeePrice>(modelBuilder);
-            AutomaticDate<Continent>(modelBuilder);
-            AutomaticDate<OriginCountry>(modelBuilder);
-            AutomaticDate<User>(modelBuilder);
+            RegisterAllDates(modelBuilder);
         }
 
+        private void RegisterAllDates(ModelBuilder modelBuilder)
+        {   
+            PropertyInfo[] properties = GetType().GetProperties(BindingFlags.Public);
+            foreach(var property in properties)
+            {
+                Type t = property.GetType();
+                MethodInfo method = GetType().GetMethod("AutomaticDate");
+                method.MakeGenericMethod(t.GetGenericArguments()[0]);
+                method.Invoke(this, new object[] { modelBuilder });
+            }
+        }
+
+        #pragma warning disable IDE0051 // Remove unused private members
         private void AutomaticDate<T>(ModelBuilder modelBuilder)
             where T : Datable
         {
+            string sqlDefault = "NOW()";
+
             modelBuilder.Entity<T>()
                 .Property(d => d.CreatedAt)
-                .HasDefaultValueSql("NOW()");
+                .HasDefaultValueSql(sqlDefault);
+
+            modelBuilder.Entity<T>()
+                .Property(d => d.UpdatedAt)
+                .HasDefaultValueSql(sqlDefault);
         }
-
-        //private void AutomaticDateCreation(ModelBuilder modelBuilder)
-        //{
-        //    PropertyInfo[] propertyInfos = GetType().GetProperties(BindingFlags.Public);
-        //    MethodInfo method = typeof(ModelBuilder).GetMethod("Entity");
-        //    foreach(var prop in propertyInfos)
-        //    {
-        //        Type t = prop.PropertyType.GetGenericArguments()[0];
-        //        // TODO: check is type t derived from date
-        //        method.MakeGenericMethod(t);
-        //        object entity = method.Invoke(modelBuilder, null);
-
-        //        typeof(EntityTypeBuilder<>)
-        //            .MakeGenericType(t)
-        //            .GetMethod("Property")
-        //            .Invoke(entity, new object[] { "CreatedAt" });
-        //    }
-        //}
     }
 }

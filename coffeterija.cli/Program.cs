@@ -14,6 +14,7 @@ namespace coffeterija.cli
             };
 
             ctx.Add(continent);
+            ctx.SaveChanges();
         }
     }
 }

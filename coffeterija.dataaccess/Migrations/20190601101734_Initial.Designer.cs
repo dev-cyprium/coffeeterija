@@ -10,8 +10,8 @@ using coffeterija.dataaccess;
 namespace coffeterija.dataaccess.Migrations
 {
     [DbContext(typeof(CoffeeContext))]
-    [Migration("20190531123135_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190601101734_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,9 +28,13 @@ namespace coffeterija.dataaccess.Migrations
 
                     b.Property<int?>("CountryId");
 
+                    b.Property<DateTime>("CreatedAt");
+
                     b.Property<DateTime>("DeletedAt");
 
                     b.Property<string>("Name");
+
+                    b.Property<DateTime>("UpdatedAt");
 
                     b.HasKey("Id");
 
@@ -46,9 +50,13 @@ namespace coffeterija.dataaccess.Migrations
 
                     b.Property<int?>("CoffeeId");
 
+                    b.Property<DateTime>("CreatedAt");
+
                     b.Property<DateTime>("DeletedAt");
 
                     b.Property<float>("Price");
+
+                    b.Property<DateTime>("UpdatedAt");
 
                     b.HasKey("Id");
 
@@ -62,9 +70,13 @@ namespace coffeterija.dataaccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreatedAt");
+
                     b.Property<DateTime>("DeletedAt");
 
                     b.Property<string>("Name");
+
+                    b.Property<DateTime>("UpdatedAt");
 
                     b.HasKey("Id");
 
@@ -77,7 +89,11 @@ namespace coffeterija.dataaccess.Migrations
 
                     b.Property<int>("UserId");
 
+                    b.Property<DateTime>("CreatedAt");
+
                     b.Property<DateTime>("DeletedAt");
+
+                    b.Property<DateTime>("UpdatedAt");
 
                     b.HasKey("CoffeeId", "UserId");
 
@@ -93,7 +109,11 @@ namespace coffeterija.dataaccess.Migrations
 
                     b.Property<int?>("ContinentId");
 
+                    b.Property<DateTime>("CreatedAt");
+
                     b.Property<DateTime>("DeletedAt");
+
+                    b.Property<DateTime>("UpdatedAt");
 
                     b.HasKey("Id");
 
@@ -107,6 +127,8 @@ namespace coffeterija.dataaccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreatedAt");
+
                     b.Property<DateTime>("DeletedAt");
 
                     b.Property<string>("Email");
@@ -114,6 +136,8 @@ namespace coffeterija.dataaccess.Migrations
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
+
+                    b.Property<DateTime>("UpdatedAt");
 
                     b.HasKey("Id");
 

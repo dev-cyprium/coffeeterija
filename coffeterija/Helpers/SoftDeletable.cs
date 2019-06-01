@@ -3,6 +3,6 @@ namespace coffeterija
 {
     public class SoftDeletable
     {
-        public DateTime DeletedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
     }
 }
