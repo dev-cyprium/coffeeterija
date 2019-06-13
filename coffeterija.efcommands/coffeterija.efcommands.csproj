@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\coffeterija.dataaccess\coffeterija.dataaccess.csproj" />
+    <ProjectReference Include="..\coffeterija.application\coffeterija.application.csproj" />
+  </ItemGroup>
 </Project>

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using coffeterija.api.Filters;
+using coffeterija.application.Commands;
 using coffeterija.application.Requests;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,16 +11,24 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace coffeterija.api.Controllers
 {
+
     [Route("api/[controller]")]
+    [ApiController]
     public class ContinentsController : Controller
     {
+        private IGetContinents ContinentsService { get; set; }
+
+        public ContinentsController(IGetContinents continentsService)
+        {
+            ContinentsService = continentsService;
+        }
+
         // GET: api/continents
         [HttpGet]
-        public IEnumerable<int> Get(PagedRequest request)
+        [LoggedIn]
+        public IActionResult Get([FromQuery] PagedRequest request)
         {
-            var test = new PagedRequest();
-
-            return new int[] { request.Page, request.PerPage };
+            return Ok(ContinentsService.Execute(request));
         }
 
         // GET api/values/5

@@ -1,3 +1,6 @@
+# Ignore secret file
+cofeterija.api/secrets.json
+
 # globs
 Makefile.in
 *.userprefs

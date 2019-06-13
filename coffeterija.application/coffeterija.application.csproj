@@ -12,5 +12,10 @@
     <Folder Include="Exceptions\" />
     <Folder Include="Commands\" />
     <Folder Include="Requests\" />
+    <Folder Include="Pagination\" />
+    <Folder Include="Responses\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\coffeterija.dataaccess\coffeterija.dataaccess.csproj" />
   </ItemGroup>
 </Project>

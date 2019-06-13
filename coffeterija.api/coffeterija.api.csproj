@@ -7,11 +7,15 @@
   <ItemGroup>
     <Folder Include="wwwroot\" />
     <Folder Include="Controllers\" />
+    <Folder Include="Services\" />
+    <Folder Include="Middlewares\" />
+    <Folder Include="Filters\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,7 +23,8 @@
     <Compile Remove="Controllers\CoffeesController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\coffeterija.application\coffeterija.application.csproj" />
+    <ProjectReference Include="..\coffeterija.dataaccess\coffeterija.dataaccess.csproj" />
+    <ProjectReference Include="..\coffeterija.efcommands\coffeterija.efcommands.csproj" />
     <ProjectReference Include="..\coffeterija.application\coffeterija.application.csproj" />
   </ItemGroup>
 </Project>
