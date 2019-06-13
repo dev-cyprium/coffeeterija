@@ -1,6 +1,3 @@
-# Ignore secret file
-cofeterija.api/secrets.json
-
 # globs
 Makefile.in
 *.userprefs
@@ -406,3 +403,6 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+
+# Ignore the secret file
+coffeterija.api/secrets.json
