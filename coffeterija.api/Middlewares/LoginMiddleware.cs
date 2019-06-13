@@ -6,10 +6,12 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using coffeterija.api.Services;
+using coffeterija.application.Requests;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using static coffeterija.api.Services.JWTUserService;
 
 namespace coffeterija.api.Middlewares
 {
@@ -23,33 +25,26 @@ namespace coffeterija.api.Middlewares
             _next = next;
         }
 
-        public async Task Invoke(HttpContext httpContext, ILoginService service, IConfiguration config)
+        public async Task Invoke(HttpContext httpContext, 
+            ILoginService loginService, 
+            ITokenService<int, UserLoginDTO> tokenService)
         {
             var token = httpContext.Request.Headers["Authorization"].ToString();
             if(!string.IsNullOrEmpty(token))
             {
-                var handler = new JwtSecurityTokenHandler();
                 try
                 {
-                    var key = Encoding.ASCII.GetBytes(config.GetSection("Encryption")["key"]);
-                    handler.ValidateToken(token, new TokenValidationParameters
-                    {
-                         RequireExpirationTime = true,
-                         ValidateIssuerSigningKey = true,
-                         IssuerSigningKey = new SymmetricSecurityKey(key),
-                         ValidateIssuer = false,
-                         ValidateAudience = false
-                    }, out SecurityToken validatedToken);
-                    var jwt = handler.ReadToken(token) as JwtSecurityToken;
-                    var id = jwt.Claims.First(claim => claim.Type == "user_id").Value;
-
-                    service.LoginWithId(int.Parse(id));
+                    int id = tokenService.GetFromToken(token);
+                    loginService.LoginWithId(id);
                     await _next(httpContext);
-                } catch (Exception)
+                } catch (InvalidTokenException)
                 {
                     httpContext.Response.StatusCode = 401;
                     await httpContext.Response.WriteAsync("Bad token");
                 }
+            } else
+            {
+                await _next(httpContext);
             }
         }
     }

@@ -27,4 +27,7 @@
     <ProjectReference Include="..\coffeterija.efcommands\coffeterija.efcommands.csproj" />
     <ProjectReference Include="..\coffeterija.application\coffeterija.application.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\Test.txt" />
+  </ItemGroup>
 </Project>

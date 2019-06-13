@@ -2,6 +2,7 @@
 using coffeterija.api.Middlewares;
 using coffeterija.api.Services;
 using coffeterija.application.Commands;
+using coffeterija.application.Requests;
 using coffeterija.dataaccess;
 using coffeterija.efcommands;
 using Microsoft.AspNetCore.Builder;
@@ -33,12 +34,13 @@ namespace coffeterija.api
             services.AddDbContext<CoffeeContext>();
             services.AddTransient<IGetContinents, GetContinents>();
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseStaticFiles();
+            // app.UseStaticFiles();
 
             if (env.IsDevelopment())
             {
