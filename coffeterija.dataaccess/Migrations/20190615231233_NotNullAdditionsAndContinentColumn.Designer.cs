@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using coffeterija.dataaccess;
@@ -9,9 +10,10 @@ using coffeterija.dataaccess;
 namespace coffeterija.dataaccess.Migrations
 {
     [DbContext(typeof(CoffeeContext))]
-    partial class CoffeeContextModelSnapshot : ModelSnapshot
+    [Migration("20190615231233_NotNullAdditionsAndContinentColumn")]
+    partial class NotNullAdditionsAndContinentColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,8 +107,6 @@ namespace coffeterija.dataaccess.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<decimal>("Area");
 
                     b.Property<int?>("ContinentId");
 
