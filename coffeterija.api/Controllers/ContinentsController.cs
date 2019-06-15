@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using coffeterija.api.Filters;
+﻿using coffeterija.api.Filters;
 using coffeterija.application.Commands;
+using coffeterija.application.Commands.Continents;
 using coffeterija.application.Requests;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,10 +14,14 @@ namespace coffeterija.api.Controllers
     public class ContinentsController : Controller
     {
         private IGetContinents ContinentsService { get; set; }
+        private IUpdateContinent UpdateContinentCommand { get; set; }
 
-        public ContinentsController(IGetContinents continentsService)
+        public ContinentsController(
+            IGetContinents continentsService,
+            IUpdateContinent updateContinentCommand)
         {
             ContinentsService = continentsService;
+            UpdateContinentCommand = updateContinentCommand;
         }
 
         // GET: api/continents
@@ -46,8 +47,11 @@ namespace coffeterija.api.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody] UpdateContinentDTO continent)
         {
+            continent.Id = id;
+            UpdateContinentCommand.Execute(continent);
+            return Ok();
         }
 
         // DELETE api/values/5

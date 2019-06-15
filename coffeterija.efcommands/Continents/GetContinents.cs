@@ -6,7 +6,7 @@ using coffeterija.application.Requests;
 using coffeterija.application.Responses;
 using coffeterija.dataaccess;
 
-namespace coffeterija.efcommands
+namespace coffeterija.efcommands.Continents
 {
     public class GetContinents : CofeterijaBase, IGetContinents
     {

@@ -2,9 +2,10 @@
 using coffeterija.api.Middlewares;
 using coffeterija.api.Services;
 using coffeterija.application.Commands;
+using coffeterija.application.Commands.Continents;
 using coffeterija.application.Requests;
 using coffeterija.dataaccess;
-using coffeterija.efcommands;
+using coffeterija.efcommands.Continents;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -32,6 +33,7 @@ namespace coffeterija.api
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<CoffeeContext>();
+            services.AddTransient<IUpdateContinent, UpdateContinent>();
             services.AddTransient<IGetContinents, GetContinents>();
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();

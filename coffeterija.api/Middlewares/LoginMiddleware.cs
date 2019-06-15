@@ -39,8 +39,7 @@ namespace coffeterija.api.Middlewares
                     await _next(httpContext);
                 } catch (InvalidTokenException)
                 {
-                    httpContext.Response.StatusCode = 401;
-                    await httpContext.Response.WriteAsync("Bad token");
+                    await _next(httpContext);
                 }
             } else
             {

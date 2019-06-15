@@ -1,12 +1,25 @@
 ﻿using System;
+using AutoMapper;
+using coffeterija.application.Requests;
 using coffeterija.dataaccess;
 
-namespace coffeterija.efcommands
+namespace coffeterija.efcommands.Continents
 {
-    public class CofeterijaBase
+    public abstract class CofeterijaBase
     {
         protected CoffeeContext CoffeeContext { get; private set; }
-
-        public CofeterijaBase(CoffeeContext context) => CoffeeContext = context;
+        protected IMapper Mapper { get; private set; }
+    
+        protected CofeterijaBase (CoffeeContext context)
+        {
+            CoffeeContext = context;
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<UpdateContinentDTO, Continent>()
+                    .ForMember(c => c.Id, cf => cf.Ignore())
+                    .ForSourceMember(dto => dto.Id, cf => cf.DoNotValidate());
+            });
+            Mapper = config.CreateMapper();
+        }
     }
 }
