@@ -3,7 +3,9 @@ using coffeterija.api.Middlewares;
 using coffeterija.api.Services;
 using coffeterija.application.Commands;
 using coffeterija.application.Commands.Continents;
+using coffeterija.application.Exceptions;
 using coffeterija.application.Requests;
+using coffeterija.application.Responses;
 using coffeterija.dataaccess;
 using coffeterija.efcommands.Continents;
 using Microsoft.AspNetCore.Builder;
@@ -13,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 
 namespace coffeterija.api
 {
@@ -63,9 +66,20 @@ namespace coffeterija.api
                 errApp.Run(async context =>
                 {
                     IExceptionHandlerPathFeature feature = context.Features.Get<IExceptionHandlerPathFeature>();
-                    Exception exception = feature.Error;
-
-                    await context.Response.WriteAsync(exception.Message);
+                    if (feature.Error is HttpException exception)
+                    {
+                        ErrorResponse resp = new ErrorResponse()
+                        {
+                            ErrorDetails = exception.HttpMessage
+                        };
+                        context.Response.StatusCode = exception.HttpStatus;
+                        await context.Response.WriteAsync(JsonConvert.SerializeObject(resp));
+                    }
+                    else
+                    {
+                        context.Response.StatusCode = 500;
+                        await context.Response.WriteAsync("Internal Server Error");
+                    }
                 });
             });
             app.UseMvc();
