@@ -1,8 +1,5 @@
 ﻿using System;
 namespace coffeterija.application.Commands.OriginCountries
 {
-    public interface IShowOriginCountry
-    {
-        
-    }
+    public interface IShowOriginCountry : ICommand<int> {}
 }

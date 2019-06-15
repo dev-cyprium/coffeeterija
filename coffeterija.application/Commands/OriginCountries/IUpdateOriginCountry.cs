@@ -1,8 +1,7 @@
 ﻿using System;
+using coffeterija.application.Requests;
+
 namespace coffeterija.application.Commands.OriginCountries
 {
-    public interface IUpdateOriginCountry
-    {
-        
-    }
+    public interface IUpdateOriginCountry : ICommand<UpdateOriginCountry> {}
 }
