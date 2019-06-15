@@ -14,6 +14,7 @@
     <Folder Include="Pagination\" />
     <Folder Include="Responses\" />
     <Folder Include="Commands\Continents\" />
+    <Folder Include="Commands\OriginCountries\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\coffeterija.dataaccess\coffeterija.dataaccess.csproj" />
