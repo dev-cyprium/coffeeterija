@@ -40,6 +40,7 @@ namespace coffeterija.api
             services.AddTransient<IUpdateContinent, UpdateContinent>();
             services.AddTransient<IGetContinents, GetContinents>();
             services.AddTransient<ICreateContinent, CreateContinent>();
+            services.AddTransient<IDeleteContinent, DeleteContinent>();
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();
         }

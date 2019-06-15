@@ -14,18 +14,21 @@ namespace coffeterija.api.Controllers
     [ApiController]
     public class ContinentsController : Controller
     {
-        private IGetContinents ContinentsService { get; }
-        private IUpdateContinent UpdateContinentCommand { get; }
-        private ICreateContinent CreateContinentCommand { get; }
+        private readonly IDeleteContinent deleteContinentCommand;
+        private readonly IGetContinents continentsService;
+        private readonly IUpdateContinent updateContinentCommand;
+        private readonly ICreateContinent createContinentCommand;
 
         public ContinentsController(
             IGetContinents continentsService,
             IUpdateContinent updateContinentCommand,
-            ICreateContinent createContinent)
+            ICreateContinent createContinentCommand,
+            IDeleteContinent deleteContinentCommand)
         {
-            ContinentsService = continentsService;
-            UpdateContinentCommand = updateContinentCommand;
-            CreateContinentCommand = createContinent;
+            this.continentsService = continentsService;
+            this.updateContinentCommand = updateContinentCommand;
+            this.createContinentCommand = createContinentCommand;
+            this.deleteContinentCommand = deleteContinentCommand;
         }
 
         // GET: api/continents
@@ -33,7 +36,7 @@ namespace coffeterija.api.Controllers
         [LoggedIn]
         public IActionResult Get([FromQuery] PagedRequest request)
         {
-            return Ok(ContinentsService.Execute(request));
+            return Ok(continentsService.Execute(request));
         }
 
         // GET api/values/5
@@ -47,7 +50,7 @@ namespace coffeterija.api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] NewContinentDTO continent)
         {
-            CreateContinentCommand.Execute(continent);
+            createContinentCommand.Execute(continent);
             return Ok();
         }
 
@@ -56,14 +59,16 @@ namespace coffeterija.api.Controllers
         public IActionResult Put(int id, [FromBody] UpdateContinentDTO continent)
         {
             continent.Id = id;
-            UpdateContinentCommand.Execute(continent);
+            updateContinentCommand.Execute(continent);
             return Ok();
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            deleteContinentCommand.Execute(id);
+            return Ok();
         }
     }
 }
