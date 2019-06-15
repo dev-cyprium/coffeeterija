@@ -17,7 +17,7 @@ namespace coffeterija.efcommands.Continents
             return CoffeeContext
                 .Continents
                 .AsQueryable()
-                .Select(continent => new ContinentResponse() { Name = continent.Name })
+                .Select(continent => new ContinentResponse() { Name = continent.Name, Id = continent.Id })
                 .Paginate(request.PerPage, request.Page);
         }
     }

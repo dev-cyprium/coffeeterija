@@ -37,10 +37,15 @@ namespace coffeterija.api
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<CoffeeContext>();
+            // Continents
             services.AddTransient<IUpdateContinent, UpdateContinent>();
             services.AddTransient<IGetContinents, GetContinents>();
             services.AddTransient<ICreateContinent, CreateContinent>();
             services.AddTransient<IDeleteContinent, DeleteContinent>();
+            services.AddTransient<IShowContinent, ShowContinent>();
+
+
+
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();
         }

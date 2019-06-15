@@ -15,6 +15,7 @@ namespace coffeterija.api.Controllers
     public class ContinentsController : Controller
     {
         private readonly IDeleteContinent deleteContinentCommand;
+        private readonly IShowContinent showContinentCommand;
         private readonly IGetContinents continentsService;
         private readonly IUpdateContinent updateContinentCommand;
         private readonly ICreateContinent createContinentCommand;
@@ -23,12 +24,14 @@ namespace coffeterija.api.Controllers
             IGetContinents continentsService,
             IUpdateContinent updateContinentCommand,
             ICreateContinent createContinentCommand,
-            IDeleteContinent deleteContinentCommand)
+            IDeleteContinent deleteContinentCommand,
+            IShowContinent showContinentCommand)
         {
             this.continentsService = continentsService;
             this.updateContinentCommand = updateContinentCommand;
             this.createContinentCommand = createContinentCommand;
             this.deleteContinentCommand = deleteContinentCommand;
+            this.showContinentCommand = showContinentCommand;
         }
 
         // GET: api/continents
@@ -41,9 +44,9 @@ namespace coffeterija.api.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            return Ok(showContinentCommand.Execute(id));
         }
 
         // POST api/values
