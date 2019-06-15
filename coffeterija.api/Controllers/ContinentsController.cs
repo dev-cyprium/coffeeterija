@@ -44,6 +44,7 @@ namespace coffeterija.api.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
+        [LoggedIn]
         public IActionResult Get(int id)
         {
             return Ok(showContinentCommand.Execute(id));
@@ -51,6 +52,7 @@ namespace coffeterija.api.Controllers
 
         // POST api/values
         [HttpPost]
+        [LoggedIn]
         public IActionResult Post([FromBody] NewContinentDTO continent)
         {
             createContinentCommand.Execute(continent);
@@ -59,6 +61,7 @@ namespace coffeterija.api.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
+        [LoggedIn]
         public IActionResult Put(int id, [FromBody] UpdateContinentDTO continent)
         {
             continent.Id = id;
@@ -68,6 +71,7 @@ namespace coffeterija.api.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
+        [LoggedIn]
         public IActionResult Delete(int id)
         {
             deleteContinentCommand.Execute(id);
