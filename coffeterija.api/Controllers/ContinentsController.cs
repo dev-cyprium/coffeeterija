@@ -1,4 +1,5 @@
 ﻿using coffeterija.api.Filters;
+using coffeterija.application;
 using coffeterija.application.Commands;
 using coffeterija.application.Commands.Continents;
 using coffeterija.application.Requests;
@@ -13,15 +14,18 @@ namespace coffeterija.api.Controllers
     [ApiController]
     public class ContinentsController : Controller
     {
-        private IGetContinents ContinentsService { get; set; }
-        private IUpdateContinent UpdateContinentCommand { get; set; }
+        private IGetContinents ContinentsService { get; }
+        private IUpdateContinent UpdateContinentCommand { get; }
+        private ICreateContinent CreateContinentCommand { get; }
 
         public ContinentsController(
             IGetContinents continentsService,
-            IUpdateContinent updateContinentCommand)
+            IUpdateContinent updateContinentCommand,
+            ICreateContinent createContinent)
         {
             ContinentsService = continentsService;
             UpdateContinentCommand = updateContinentCommand;
+            CreateContinentCommand = createContinent;
         }
 
         // GET: api/continents
@@ -41,8 +45,10 @@ namespace coffeterija.api.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody] NewContinentDTO continent)
         {
+            CreateContinentCommand.Execute(continent);
+            return Ok();
         }
 
         // PUT api/values/5

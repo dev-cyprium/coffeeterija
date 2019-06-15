@@ -1,6 +1,7 @@
 ﻿using System;
 using coffeterija.api.Middlewares;
 using coffeterija.api.Services;
+using coffeterija.application;
 using coffeterija.application.Commands;
 using coffeterija.application.Commands.Continents;
 using coffeterija.application.Exceptions;
@@ -38,6 +39,7 @@ namespace coffeterija.api
             services.AddDbContext<CoffeeContext>();
             services.AddTransient<IUpdateContinent, UpdateContinent>();
             services.AddTransient<IGetContinents, GetContinents>();
+            services.AddTransient<ICreateContinent, CreateContinent>();
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();
         }

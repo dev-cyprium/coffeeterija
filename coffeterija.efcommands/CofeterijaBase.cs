@@ -18,6 +18,8 @@ namespace coffeterija.efcommands.Continents
                 cfg.CreateMap<UpdateContinentDTO, Continent>()
                     .ForMember(c => c.Id, cf => cf.Ignore())
                     .ForSourceMember(dto => dto.Id, cf => cf.DoNotValidate());
+
+                cfg.CreateMap<NewContinentDTO, Continent>();
             });
             Mapper = config.CreateMapper();
         }
