@@ -1,9 +1,8 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using coffeterija.application.Requests;
 using coffeterija.dataaccess;
 
-namespace coffeterija.efcommands.Continents
+namespace coffeterija.efcommands
 {
     public abstract class CofeterijaBase
     {
@@ -19,7 +18,12 @@ namespace coffeterija.efcommands.Continents
                     .ForMember(c => c.Id, cf => cf.Ignore())
                     .ForSourceMember(dto => dto.Id, cf => cf.DoNotValidate());
 
+                cfg.CreateMap<UpdateOriginCountryDTO, OriginCountry>()
+                    .ForMember(c => c.Id, cf => cf.Ignore())
+                    .ForSourceMember(dto => dto.Id, cf => cf.DoNotValidate());
+
                 cfg.CreateMap<NewContinentDTO, Continent>();
+                cfg.CreateMap<NewOriginCountryDTO, OriginCountry>();
             });
             Mapper = config.CreateMapper();
         }

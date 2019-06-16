@@ -15,7 +15,6 @@ namespace coffeterija.efcommands.Continents
 
         public void Execute(UpdateContinentDTO request)
         {
-            Console.WriteLine(request.Id);
             var continent = CoffeeContext
                 .Continents
                 .FirstOrDefault(cnt => cnt.Id == request.Id);

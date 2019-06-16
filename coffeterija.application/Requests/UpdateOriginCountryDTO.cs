@@ -3,8 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace coffeterija.application.Requests
 {
-    public class UpdateOriginCountry
+    public class UpdateOriginCountryDTO
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         [Range(100.0, double.MaxValue)]
