@@ -22,7 +22,6 @@ namespace coffeterija.efcommands
                     .ForMember(c => c.Id, cf => cf.Ignore())
                     .ForSourceMember(dto => dto.Id, cf => cf.DoNotValidate());
 
-                cfg.CreateMap<NewContinentDTO, Continent>();
                 cfg.CreateMap<NewOriginCountryDTO, OriginCountry>();
             });
             Mapper = config.CreateMapper();

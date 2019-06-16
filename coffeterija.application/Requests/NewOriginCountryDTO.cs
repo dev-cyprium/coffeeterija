@@ -7,8 +7,12 @@ namespace coffeterija.application.Requests
     {
         [Required]
         public string Name { get; set; }
+
         [Required]
-        [Range(100.0, double.MaxValue)]
+        [Range(10.0, double.MaxValue)]
         public decimal Area { get; set; }
+
+        [Required]
+        public int? ContinentId { get; set; }
     }
 }

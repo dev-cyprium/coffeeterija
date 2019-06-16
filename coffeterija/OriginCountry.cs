@@ -9,6 +9,7 @@ namespace coffeterija
         public string Name { get; set; }
         [Required]
         public decimal Area { get; set; }
+
         public Continent Continent { get; set; }
     }
 }

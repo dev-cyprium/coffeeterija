@@ -9,8 +9,8 @@ namespace coffeterija.application.Pagination
         {
             var result =
                query
-                   .Skip((page - 1) * perPage)
-                   .Take(perPage);
+                  .Skip((page - 1) * perPage)
+                  .Take(perPage);
 
             return new PaginateResponse<T>()
             {

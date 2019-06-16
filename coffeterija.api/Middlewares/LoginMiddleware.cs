@@ -29,6 +29,8 @@ namespace coffeterija.api.Middlewares
             ILoginService loginService, 
             ITokenService<int, UserLoginDTO> tokenService)
         {
+            httpContext.Response.Headers["Access-Control-Allow-Origin"] = "*";
+
             var token = httpContext.Request.Headers["Authorization"].ToString();
             if(!string.IsNullOrEmpty(token))
             {

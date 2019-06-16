@@ -9,7 +9,7 @@ namespace coffeterija.application.Requests
 
         public string Name { get; set; }
 
-        [Range(100.0, double.MaxValue)]
-        public decimal Area { get; set; }
+        [Range(10.0, double.MaxValue)]
+        public decimal? Area { get; set; }
     }
 }

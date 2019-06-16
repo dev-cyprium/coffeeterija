@@ -38,7 +38,7 @@ namespace coffeterija.efcommands.OriginCountries
 
             if(request.Name != null)
             {
-                query = query.Where(oc => oc.Name.Contains(request.Name.Trim()));
+                query = query.Where(oc => oc.Name.ToLower().Contains(request.Name.Trim().ToLower()));
             }
 
             return query
@@ -46,9 +46,10 @@ namespace coffeterija.efcommands.OriginCountries
                 {
                     Continent = oc.Continent.Name,
                     Name = oc.Name,
-                    Id = oc.Id
+                    Id = oc.Id,
+                    Area = oc.Area
                 })
-                .Paginate(request.Page, request.PerPage);
+                .Paginate(request.PerPage, request.Page);
         }
     }
 }

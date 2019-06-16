@@ -4,6 +4,7 @@ using coffeterija.application.Commands.OriginCountries;
 using coffeterija.application.Exceptions;
 using coffeterija.application.Responses;
 using coffeterija.dataaccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace coffeterija.efcommands.OriginCountries
 {
@@ -15,7 +16,10 @@ namespace coffeterija.efcommands.OriginCountries
 
         public OriginCountryResponse Execute(int id)
         {
-            var country = CoffeeContext.OriginCountries.FirstOrDefault(oc => oc.Id == id);
+            var country = CoffeeContext
+                .OriginCountries
+                .Include(oc => oc.Continent)
+                .FirstOrDefault(oc => oc.Id == id);
 
             if (country == null)
             {
@@ -26,7 +30,8 @@ namespace coffeterija.efcommands.OriginCountries
             {
                 Id = country.Id,
                 Continent = country.Continent.Name,
-                Name = country.Name
+                Name = country.Name,
+                Area = country.Area
             };
         }
     }

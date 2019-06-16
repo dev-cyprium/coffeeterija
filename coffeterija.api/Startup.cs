@@ -4,11 +4,13 @@ using coffeterija.api.Services;
 using coffeterija.application;
 using coffeterija.application.Commands;
 using coffeterija.application.Commands.Continents;
+using coffeterija.application.Commands.OriginCountries;
 using coffeterija.application.Exceptions;
 using coffeterija.application.Requests;
 using coffeterija.application.Responses;
 using coffeterija.dataaccess;
 using coffeterija.efcommands.Continents;
+using coffeterija.efcommands.OriginCountries;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -44,7 +46,12 @@ namespace coffeterija.api
             services.AddTransient<IDeleteContinent, DeleteContinent>();
             services.AddTransient<IShowContinent, ShowContinent>();
 
-
+            // Countries
+            services.AddTransient<ICreateOriginCountry, CreateOriginCountry>();
+            services.AddTransient<IDeleteOriginCountry, DeleteOriginCountry>();
+            services.AddTransient<IGetOriginCountries, GetOriginCountries>();
+            services.AddTransient<IShowOriginCountry, ShowOriginCountry>();
+            services.AddTransient<IUpdateOriginCountry, UpdateOriginCountry>();
 
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();
@@ -86,7 +93,8 @@ namespace coffeterija.api
                     else
                     {
                         context.Response.StatusCode = 500;
-                        await context.Response.WriteAsync("Internal Server Error");
+                        await context.Response.WriteAsync(feature.Error.Message);
+                        // await context.Response.WriteAsync("Internal Server Error");
                     }
                 });
             });
