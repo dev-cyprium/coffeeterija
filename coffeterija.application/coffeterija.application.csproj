@@ -16,6 +16,7 @@
     <Folder Include="Commands\Continents\" />
     <Folder Include="Commands\OriginCountries\" />
     <Folder Include="Commands\Users\" />
+    <Folder Include="Commands\Coffees\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\coffeterija.dataaccess\coffeterija.dataaccess.csproj" />
