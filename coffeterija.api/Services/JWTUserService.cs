@@ -19,13 +19,15 @@ namespace coffeterija.api.Services
             { }
         }
 
-        CoffeeContext context;
-        IConfiguration config;
+        private readonly CoffeeContext context;
+        private readonly IConfiguration config;
+        private readonly IPasswordService passwordService;
 
-        public JWTUserService(CoffeeContext context, IConfiguration config)
+        public JWTUserService(CoffeeContext context, IConfiguration config, IPasswordService passwordService)
         {
             this.config = config;
             this.context = context;
+            this.passwordService = passwordService;
         }
 
         /// <summary>
@@ -35,6 +37,11 @@ namespace coffeterija.api.Services
         public string GenerateToken(UserLoginDTO request)
         {
             var user = context.Users.SingleOrDefault(u => u.Email == request.Email);
+
+            if(!passwordService.Verify(request.Password, user.Password))
+            {
+                return null;
+            }
 
             if (user == null)
                 return null;

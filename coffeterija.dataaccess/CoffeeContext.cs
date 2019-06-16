@@ -33,7 +33,9 @@ namespace coffeterija.dataaccess
                 .WithMany(u => u.Favorites)
                 .HasForeignKey(fav => fav.UserId);
 
-            // TODO: Add unique constraint to email
+            modelBuilder.Entity<User>()
+                .HasIndex(field => field.Email)
+                .IsUnique();
 
             RegisterAllDates(modelBuilder);
         }

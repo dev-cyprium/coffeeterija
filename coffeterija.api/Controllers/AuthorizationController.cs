@@ -52,10 +52,17 @@ namespace coffeterija.api.Controllers
         [HttpPost("register")]
         public IActionResult Register(UserRegisterDTO request)
         {
-            request.Password = passwordService.HashPassword(request.Password);
+            string givenPassword = request.Password;
+            request.Password = passwordService.HashPassword(givenPassword);
             registerCommand.Execute(request);
-            
-            return Ok();
+
+            request.Password = givenPassword;
+            var token = tokenService.GenerateToken(request);
+
+            return Ok(new TokenResponse()
+            {
+                Token = token
+            });
         }
     }
 }
