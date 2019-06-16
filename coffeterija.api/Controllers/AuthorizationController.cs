@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using coffeterija.api.Services;
+using coffeterija.application.Commands.Users;
 using coffeterija.application.Requests;
 using coffeterija.application.Responses;
 using coffeterija.dataaccess;
@@ -19,14 +20,21 @@ namespace coffeterija.api.Controllers
     [ApiController]
     public class AuthorizationController : Controller
     {
-        readonly ITokenService<int, UserLoginDTO> tokenService;
+        private readonly ITokenService<int, UserLoginDTO> tokenService;
+        private readonly IPasswordService passwordService;
+        private readonly IRegisterUser registerCommand;
 
-        public AuthorizationController(ITokenService<int, UserLoginDTO> tokenService)
+        public AuthorizationController(
+            ITokenService<int, UserLoginDTO> tokenService,
+            IPasswordService passwordService,
+            IRegisterUser registerCommand)
         {
             this.tokenService = tokenService;
+            this.passwordService = passwordService;
+            this.registerCommand = registerCommand;
         }
 
-        [HttpPost]
+        [HttpPost("login")]
         public IActionResult Login(UserLoginDTO request)
         {
 
@@ -39,6 +47,15 @@ namespace coffeterija.api.Controllers
             {
                 Token = token
             });
+        }
+
+        [HttpPost("register")]
+        public IActionResult Register(UserRegisterDTO request)
+        {
+            request.Password = passwordService.HashPassword(request.Password);
+            registerCommand.Execute(request);
+            
+            return Ok();
         }
     }
 }

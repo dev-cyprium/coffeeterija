@@ -5,12 +5,14 @@ using coffeterija.application;
 using coffeterija.application.Commands;
 using coffeterija.application.Commands.Continents;
 using coffeterija.application.Commands.OriginCountries;
+using coffeterija.application.Commands.Users;
 using coffeterija.application.Exceptions;
 using coffeterija.application.Requests;
 using coffeterija.application.Responses;
 using coffeterija.dataaccess;
 using coffeterija.efcommands.Continents;
 using coffeterija.efcommands.OriginCountries;
+using coffeterija.efcommands.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -39,6 +41,9 @@ namespace coffeterija.api
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<CoffeeContext>();
+            // Users
+            services.AddTransient<IRegisterUser, RegisterUser>();
+
             // Continents
             services.AddTransient<IUpdateContinent, UpdateContinent>();
             services.AddTransient<IGetContinents, GetContinents>();
@@ -55,6 +60,7 @@ namespace coffeterija.api
 
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();
+            services.AddScoped<IPasswordService, BcryptNet>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

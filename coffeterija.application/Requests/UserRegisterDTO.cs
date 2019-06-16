@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace coffeterija.application.Requests
 {
-    public class UserLoginDTO
+    public class UserRegisterDTO : UserLoginDTO
     {
         [Required]
-        public string Email { get; set; }
+        public string FirstName { get; set; }  
 
         [Required]
-        public string Password { get; set; }
+        public string LastName { get; set; }
     }
 }

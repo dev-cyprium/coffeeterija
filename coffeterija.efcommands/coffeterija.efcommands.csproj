@@ -17,6 +17,7 @@
   <ItemGroup>
     <Folder Include="Continents\" />
     <Folder Include="OriginCountries\" />
+    <Folder Include="Users\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.1.1" />
