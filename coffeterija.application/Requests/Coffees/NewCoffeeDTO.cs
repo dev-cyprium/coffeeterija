@@ -16,5 +16,7 @@ namespace coffeterija.application.Requests.Coffees
 
         [Required]
         public IFormFile Image { get; set; }
+
+        public string ImagePath { get; set; }
     }
 }

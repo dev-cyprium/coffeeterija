@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using coffeterija.dataaccess;
@@ -9,9 +10,10 @@ using coffeterija.dataaccess;
 namespace coffeterija.dataaccess.Migrations
 {
     [DbContext(typeof(CoffeeContext))]
-    partial class CoffeeContextModelSnapshot : ModelSnapshot
+    [Migration("20190617112737_ChangePriceType")]
+    partial class ChangePriceType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,28 +41,6 @@ namespace coffeterija.dataaccess.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("Coffees");
-                });
-
-            modelBuilder.Entity("coffeterija.CoffeeImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CoffeeId");
-
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<DateTime?>("DeletedAt");
-
-                    b.Property<string>("ImagePath");
-
-                    b.Property<DateTime>("UpdatedAt");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CoffeeId");
-
-                    b.ToTable("CoffeeImage");
                 });
 
             modelBuilder.Entity("coffeterija.CoffeePrice", b =>
@@ -184,14 +164,6 @@ namespace coffeterija.dataaccess.Migrations
                     b.HasOne("coffeterija.OriginCountry", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId");
-                });
-
-            modelBuilder.Entity("coffeterija.CoffeeImage", b =>
-                {
-                    b.HasOne("coffeterija.Coffee", "Coffee")
-                        .WithMany("Images")
-                        .HasForeignKey("CoffeeId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("coffeterija.CoffeePrice", b =>

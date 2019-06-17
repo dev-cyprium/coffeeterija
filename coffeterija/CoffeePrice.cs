@@ -3,6 +3,6 @@ namespace coffeterija
 {
     public class CoffeePrice : PrimaryKey
     {
-        public float Price { get; set; }
+        public decimal Price { get; set; }
     }
 }

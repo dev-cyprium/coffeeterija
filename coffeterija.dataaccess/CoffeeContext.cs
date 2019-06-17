@@ -33,6 +33,11 @@ namespace coffeterija.dataaccess
                 .WithMany(u => u.Favorites)
                 .HasForeignKey(fav => fav.UserId);
 
+            modelBuilder.Entity<CoffeeImage>()
+                .HasOne(ci => ci.Coffee)
+                .WithMany(cf => cf.Images)
+                .HasForeignKey(ci => ci.CoffeeId);
+
             modelBuilder.Entity<User>()
                 .HasIndex(field => field.Email)
                 .IsUnique();

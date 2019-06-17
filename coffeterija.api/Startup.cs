@@ -3,6 +3,7 @@ using coffeterija.api.Middlewares;
 using coffeterija.api.Services;
 using coffeterija.application;
 using coffeterija.application.Commands;
+using coffeterija.application.Commands.Coffees;
 using coffeterija.application.Commands.Continents;
 using coffeterija.application.Commands.OriginCountries;
 using coffeterija.application.Commands.Users;
@@ -10,6 +11,7 @@ using coffeterija.application.Exceptions;
 using coffeterija.application.Requests;
 using coffeterija.application.Responses;
 using coffeterija.dataaccess;
+using coffeterija.efcommands.Coffees;
 using coffeterija.efcommands.Continents;
 using coffeterija.efcommands.OriginCountries;
 using coffeterija.efcommands.Users;
@@ -58,6 +60,9 @@ namespace coffeterija.api
             services.AddTransient<IShowOriginCountry, ShowOriginCountry>();
             services.AddTransient<IUpdateOriginCountry, UpdateOriginCountry>();
 
+            // Coffees
+            services.AddTransient<ICreateCoffee, CreateCoffee>();
+
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();
             services.AddScoped<IPasswordService, BcryptNet>();
@@ -66,7 +71,7 @@ namespace coffeterija.api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            // app.UseStaticFiles();
+            app.UseStaticFiles();
 
             if (env.IsDevelopment())
             {
