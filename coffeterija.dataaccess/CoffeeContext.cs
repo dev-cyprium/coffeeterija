@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 namespace coffeterija.dataaccess
 {
@@ -12,10 +14,16 @@ namespace coffeterija.dataaccess
         public DbSet<OriginCountry> OriginCountries { get; set; }
         public DbSet<User> Users { get; set; }
 
+        public static readonly LoggerFactory MyLoggerFactory
+            = new LoggerFactory(new[] { new ConsoleLoggerProvider((_, __) => true, true) });
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var dsn = @"Server=127.0.0.1;Port=5432;Database=coffeedb;User Id=postgres;Password=postgres";
-            optionsBuilder.UseNpgsql(dsn);
+            optionsBuilder
+                .UseLoggerFactory(MyLoggerFactory)
+                .EnableSensitiveDataLogging()
+                .UseNpgsql(dsn);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -42,22 +50,13 @@ namespace coffeterija.dataaccess
                 .HasIndex(field => field.Email)
                 .IsUnique();
 
-            RegisterAllDates(modelBuilder);
+            AutomaticDate<Coffee>(modelBuilder);
+            AutomaticDate<CoffeePrice>(modelBuilder);
+            AutomaticDate<Continent>(modelBuilder);
+            AutomaticDate<OriginCountry>(modelBuilder);
+            AutomaticDate<User>(modelBuilder);
         }
 
-        private void RegisterAllDates(ModelBuilder modelBuilder)
-        {   
-            PropertyInfo[] properties = GetType().GetProperties(BindingFlags.Public);
-            foreach(var property in properties)
-            {
-                Type t = property.GetType();
-                MethodInfo method = GetType().GetMethod("AutomaticDate");
-                method.MakeGenericMethod(t.GetGenericArguments()[0]);
-                method.Invoke(this, new object[] { modelBuilder });
-            }
-        }
-
-        #pragma warning disable IDE0051 // Remove unused private members
         private void AutomaticDate<T>(ModelBuilder modelBuilder)
             where T : Datable
         {

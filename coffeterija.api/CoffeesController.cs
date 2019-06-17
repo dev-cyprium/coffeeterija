@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using coffeterija.application.Commands.Coffees;
 using coffeterija.application.Exceptions;
 using coffeterija.application.Requests.Coffees;
+using coffeterija.dataaccess;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -20,11 +22,15 @@ namespace coffeterija.api
         private readonly List<string> AllowedFileTypes;
         private readonly ICreateCoffee createCommand;
         private readonly IDeleteCoffee deleteCommand;
+        private readonly IGetCoffee listCommand;
+        private readonly CoffeeContext context;
 
         public CoffeesController(
             IConfiguration configuration,
             ICreateCoffee createCommand,
-            IDeleteCoffee deleteCommand
+            IDeleteCoffee deleteCommand,
+            IGetCoffee listCommand,
+            CoffeeContext context
             )
         {
             AllowedFileTypes = configuration.GetSection("AllowedFileUploadTypes")
@@ -34,13 +40,23 @@ namespace coffeterija.api
                 .ToList();
             this.createCommand = createCommand;
             this.deleteCommand = deleteCommand;
+            this.listCommand = listCommand;
+            this.context = context;
+        }
+
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
+            return Ok(context.Coffees
+                .Include(cof => cof.Prices)
+                .Select(cof => cof.GetActivePrice()));
         }
 
         // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get([FromQuery] CoffeeFilterDTO request)
         {
-            return new string[] { "value1", "value2" };
+            return Ok(listCommand.Execute(request));
         }
 
         // GET api/values/5
@@ -74,6 +90,7 @@ namespace coffeterija.api
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
+
         }
 
         // DELETE api/values/5

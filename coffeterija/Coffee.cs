@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace coffeterija
 {
@@ -10,5 +11,10 @@ namespace coffeterija
         public ICollection<Favorites> Favorites { get; set; }
         public ICollection<CoffeeImage> Images { get; set; }
         public OriginCountry Country { get; set; }
+
+        public CoffeePrice GetActivePrice()
+        {
+            return Prices.OrderByDescending(p => p.CreatedAt).First();
+        }
     }
 }

@@ -9,10 +9,10 @@ namespace coffeterija.application.Requests.Coffees
         public string Name { get; set; }
 
         [Required]
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
 
         [Required]
-        public int CountryId { get; set; }
+        public int? CountryId { get; set; }
 
         [Required]
         public IFormFile Image { get; set; }

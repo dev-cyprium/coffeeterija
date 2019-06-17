@@ -18,7 +18,7 @@ namespace coffeterija.efcommands.Coffees
             OriginCountry country = CoffeeContext.OriginCountries.FirstOrDefault(c => c.Id == request.CountryId);
             CoffeePrice price = new CoffeePrice()
             {
-                Price = request.Price
+                Price = request.Price.Value
             };
 
             Coffee coffee = new Coffee()

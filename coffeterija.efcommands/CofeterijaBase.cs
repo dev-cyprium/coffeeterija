@@ -11,6 +11,9 @@ namespace coffeterija.efcommands
     
         protected CofeterijaBase (CoffeeContext context)
         {
+            
+
+
             CoffeeContext = context;
             var config = new MapperConfiguration(cfg =>
             {

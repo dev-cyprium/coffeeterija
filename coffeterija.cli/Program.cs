@@ -12,7 +12,13 @@ namespace coffeterija.cli
         {
             var ctx = new CoffeeContext();
 
-            var continents = ctx.Continents.AsQueryable();
+            var prices = ctx.Coffees
+                .Select(cof => cof.GetActivePrice());
+
+            foreach(var price in prices)
+            {
+                Console.WriteLine(price);
+            }
         }
     }
 }

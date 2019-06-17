@@ -63,6 +63,7 @@ namespace coffeterija.api
             // Coffees
             services.AddTransient<ICreateCoffee, CreateCoffee>();
             services.AddTransient<IDeleteCoffee, DeleteCoffee>();
+            services.AddTransient<IGetCoffee, GetCoffee>();
 
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();
