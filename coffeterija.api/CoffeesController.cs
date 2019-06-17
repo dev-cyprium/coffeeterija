@@ -23,7 +23,6 @@ namespace coffeterija.api
         private readonly ICreateCoffee createCommand;
         private readonly IDeleteCoffee deleteCommand;
         private readonly IGetCoffee listCommand;
-        private readonly CoffeeContext context;
 
         public CoffeesController(
             IConfiguration configuration,
@@ -41,7 +40,6 @@ namespace coffeterija.api
             this.createCommand = createCommand;
             this.deleteCommand = deleteCommand;
             this.listCommand = listCommand;
-            this.context = context;
         }
 
         // GET: api/values
