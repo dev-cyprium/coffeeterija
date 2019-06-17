@@ -10,6 +10,7 @@
     <Folder Include="Services\" />
     <Folder Include="Middlewares\" />
     <Folder Include="Filters\" />
+    <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
   <ItemGroup>

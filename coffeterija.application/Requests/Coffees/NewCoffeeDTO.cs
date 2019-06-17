@@ -1,5 +1,5 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace coffeterija.application.Requests.Coffees
 {
@@ -13,5 +13,8 @@ namespace coffeterija.application.Requests.Coffees
 
         [Required]
         public int CountryId { get; set; }
+
+        [Required]
+        public IFormFile Image { get; set; }
     }
 }
