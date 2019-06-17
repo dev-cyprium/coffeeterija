@@ -44,14 +44,6 @@ namespace coffeterija.api
             this.context = context;
         }
 
-        [HttpGet("test")]
-        public IActionResult Test()
-        {
-            return Ok(context.Coffees
-                .Include(cof => cof.Prices)
-                .Select(cof => cof.GetActivePrice()));
-        }
-
         // GET: api/values
         [HttpGet]
         public IActionResult Get([FromQuery] CoffeeFilterDTO request)
