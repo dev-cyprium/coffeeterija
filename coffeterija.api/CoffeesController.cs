@@ -19,10 +19,12 @@ namespace coffeterija.api
     {
         private readonly List<string> AllowedFileTypes;
         private readonly ICreateCoffee createCommand;
+        private readonly IDeleteCoffee deleteCommand;
 
         public CoffeesController(
             IConfiguration configuration,
-            ICreateCoffee createCommand
+            ICreateCoffee createCommand,
+            IDeleteCoffee deleteCommand
             )
         {
             AllowedFileTypes = configuration.GetSection("AllowedFileUploadTypes")
@@ -31,6 +33,7 @@ namespace coffeterija.api
                 .Select(p => p.Value)
                 .ToList();
             this.createCommand = createCommand;
+            this.deleteCommand = deleteCommand;
         }
 
         // GET: api/values
@@ -75,8 +78,10 @@ namespace coffeterija.api
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            deleteCommand.Execute(id);
+            return Ok();
         }
     }
 }
