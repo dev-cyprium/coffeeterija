@@ -23,13 +23,14 @@ namespace coffeterija.api
         private readonly ICreateCoffee createCommand;
         private readonly IDeleteCoffee deleteCommand;
         private readonly IGetCoffee listCommand;
+        private readonly IShowCoffee showCommand;
 
         public CoffeesController(
             IConfiguration configuration,
             ICreateCoffee createCommand,
             IDeleteCoffee deleteCommand,
             IGetCoffee listCommand,
-            CoffeeContext context
+            IShowCoffee showCommand
             )
         {
             AllowedFileTypes = configuration.GetSection("AllowedFileUploadTypes")
@@ -40,6 +41,7 @@ namespace coffeterija.api
             this.createCommand = createCommand;
             this.deleteCommand = deleteCommand;
             this.listCommand = listCommand;
+            this.showCommand = showCommand;
         }
 
         // GET: api/values
@@ -51,9 +53,9 @@ namespace coffeterija.api
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            return Ok(showCommand.Execute(id));
         }
 
         // POST api/values
