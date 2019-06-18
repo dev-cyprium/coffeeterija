@@ -19,6 +19,7 @@
     <Folder Include="OriginCountries\" />
     <Folder Include="Users\" />
     <Folder Include="Coffees\" />
+    <Folder Include="Favorites\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.1.1" />

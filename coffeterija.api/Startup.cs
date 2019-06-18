@@ -5,6 +5,7 @@ using coffeterija.application;
 using coffeterija.application.Commands;
 using coffeterija.application.Commands.Coffees;
 using coffeterija.application.Commands.Continents;
+using coffeterija.application.Commands.Favorites;
 using coffeterija.application.Commands.OriginCountries;
 using coffeterija.application.Commands.Users;
 using coffeterija.application.Exceptions;
@@ -13,6 +14,7 @@ using coffeterija.application.Responses;
 using coffeterija.dataaccess;
 using coffeterija.efcommands.Coffees;
 using coffeterija.efcommands.Continents;
+using coffeterija.efcommands.Favorites;
 using coffeterija.efcommands.OriginCountries;
 using coffeterija.efcommands.Users;
 using Microsoft.AspNetCore.Builder;
@@ -66,6 +68,9 @@ namespace coffeterija.api
             services.AddTransient<IGetCoffee, GetCoffee>();
             services.AddTransient<IShowCoffee, ShowCoffee>();
             services.AddTransient<IUpdateCoffee, UpdateCoffee>();
+
+            // Favorites
+            services.AddTransient<IAddFavorite, AddFavorite>();
 
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();
