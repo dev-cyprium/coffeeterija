@@ -21,6 +21,7 @@
     <Folder Include="Requests\Users\" />
     <Folder Include="Requests\OriginCountry\" />
     <Folder Include="Requests\Coffees\" />
+    <Folder Include="Commands\Favorites\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\coffeterija.dataaccess\coffeterija.dataaccess.csproj" />
