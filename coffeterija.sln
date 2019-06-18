@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coffeterija.web", "coffeterija.web\coffeterija.web.csproj", "{41964739-7FB1-49AD-AA84-54CA0A1AD6DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{851BCC4F-6A13-44F8-851E-F8ACC34D93ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{851BCC4F-6A13-44F8-851E-F8ACC34D93ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{851BCC4F-6A13-44F8-851E-F8ACC34D93ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41964739-7FB1-49AD-AA84-54CA0A1AD6DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41964739-7FB1-49AD-AA84-54CA0A1AD6DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41964739-7FB1-49AD-AA84-54CA0A1AD6DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41964739-7FB1-49AD-AA84-54CA0A1AD6DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
