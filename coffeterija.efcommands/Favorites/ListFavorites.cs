@@ -16,7 +16,6 @@ namespace coffeterija.efcommands.Favorites
 
         public PaginateResponse<CoffeeResponse> Execute(ListFavoritesDTO request)
         {
-            var query = CoffeeContext.Coffees.AsQueryable();
             CoffeeContext
                 .Attach(request.User)
                 .Collection(user => user.Favorites)
