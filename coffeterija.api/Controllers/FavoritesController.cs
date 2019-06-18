@@ -42,7 +42,7 @@ namespace coffeterija.api.Controllers
             return "value";
         }
 
-        // POST api/values
+        // POST api/favorites
         [HttpPost]
         [LoggedIn]
         public IActionResult Post([FromBody] FavoriteDTO request)
