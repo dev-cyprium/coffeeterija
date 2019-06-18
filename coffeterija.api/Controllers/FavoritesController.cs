@@ -18,16 +18,19 @@ namespace coffeterija.api.Controllers
     {
         private readonly IAddFavorite addCommand;
         private readonly IListFavorites listCommand;
+        private readonly IRemoveFavorite removeCommand;
         private readonly ILoginService loginService;
 
         public FavoritesController(
             IAddFavorite addCommand,
             IListFavorites listCommand,
+            IRemoveFavorite removeCommand,
             ILoginService loginService
             )
         {
             this.addCommand = addCommand;
             this.listCommand = listCommand;
+            this.removeCommand = removeCommand;
             this.loginService = loginService;
         }
 
@@ -50,16 +53,14 @@ namespace coffeterija.api.Controllers
             return Ok();
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        [LoggedIn]
+        public IActionResult Delete([FromBody] FavoriteDTO request)
         {
+            request.UserId = loginService.MaybeGetUser().Id;
+            removeCommand.Execute(request);
+            return Ok();
         }
     }
 }
