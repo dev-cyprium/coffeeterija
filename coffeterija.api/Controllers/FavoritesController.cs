@@ -17,29 +17,27 @@ namespace coffeterija.api.Controllers
     public class FavoritesController : Controller
     {
         private readonly IAddFavorite addCommand;
+        private readonly IListFavorites listCommand;
         private readonly ILoginService loginService;
 
         public FavoritesController(
             IAddFavorite addCommand,
+            IListFavorites listCommand,
             ILoginService loginService
             )
         {
             this.addCommand = addCommand;
+            this.listCommand = listCommand;
             this.loginService = loginService;
         }
 
         // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        [LoggedIn]
+        public IActionResult Get([FromQuery] ListFavoritesDTO request)
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
+            request.User = loginService.MaybeGetUser();
+            return Ok(listCommand.Execute(request));
         }
 
         // POST api/favorites

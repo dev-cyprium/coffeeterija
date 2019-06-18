@@ -71,6 +71,7 @@ namespace coffeterija.api
 
             // Favorites
             services.AddTransient<IAddFavorite, AddFavorite>();
+            services.AddTransient<IListFavorites, ListFavorites>();
 
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ITokenService<int, UserLoginDTO>, JWTUserService>();
