@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using coffeterija.application.Commands.Coffees;
+using coffeterija.dataaccess;
+using coffeterija.efcommands.Coffees;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -31,8 +34,15 @@ namespace coffeterija.web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            services.AddDbContext<CoffeeContext>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // Coffees
+            services.AddTransient<ICreateCoffee, CreateCoffee>();
+            services.AddTransient<IDeleteCoffee, DeleteCoffee>();
+            services.AddTransient<IGetCoffee, GetCoffee>();
+            services.AddTransient<IShowCoffee, ShowCoffee>();
+            services.AddTransient<IUpdateCoffee, UpdateCoffee>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +58,7 @@ namespace coffeterija.web
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 

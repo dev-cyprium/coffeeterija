@@ -1,0 +1,59 @@
+﻿@model coffeterija.application.Responses.CoffeeResponse
+
+@{
+    ViewData["Title"] = "details";
+}
+
+<h2>details</h2>
+
+@if(Model == null)
+{
+    <h3>Objekat ne postoji</h3>
+}
+
+<div>
+    <h4>CoffeeResponse</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            Image
+        </dt>
+        <dd>
+            <img width="120" src="http://@Url.Content(Model.ImageURL)" alt="@Model.Name" />
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ContinentName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ContinentName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CountryName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CountryName)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    <a asp-action="Index">Back to List</a>
+</div>
