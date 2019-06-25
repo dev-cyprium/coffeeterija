@@ -20,6 +20,7 @@ namespace coffeterija.web.Controllers
         private readonly IGetCoffee getCommand;
         private readonly IShowCoffee showCommand;
         private readonly ICreateCoffee createCommand;
+        private readonly IUpdateCoffee updateCommand;
         private readonly IDeleteCoffee deleteCommand;
         private readonly CoffeeContext context;
 
@@ -27,14 +28,58 @@ namespace coffeterija.web.Controllers
             IGetCoffee getCommand,
             IShowCoffee showCommand,
             ICreateCoffee createCommand,
+            IUpdateCoffee updateCommand,
             IDeleteCoffee deleteCommand,
             CoffeeContext context)
         {
             this.getCommand = getCommand;
             this.showCommand = showCommand;
             this.createCommand = createCommand;
+            this.updateCommand = updateCommand;
             this.deleteCommand = deleteCommand;
             this.context = context;
+        }
+
+        public IActionResult Edit(int id)
+        {
+            LoadData();
+            try
+            {
+                var coffee = showCommand.Execute(id);
+                var coffeeDTO = new UpdateCoffeeDTO()
+                {
+                    Id = coffee.Id,
+                    Name = coffee.Name,
+                    Price = coffee.Price
+                };
+                return View(coffeeDTO);
+            }
+            catch (Exception)
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, [FromForm] UpdateCoffeeDTO request)
+        {
+            try
+            {
+                if (request.Image != null)
+                {
+                    request.ImagePath = HandleNewImage(request.Image);
+                }
+
+                request.Id = id;
+                updateCommand.Execute(request);
+                return RedirectToAction(nameof(Index));
+            } catch (Exception)
+            {
+                TempData["error"] = "Something went wrong when submitting the form";
+                LoadData();
+                return View();
+            }
         }
 
         public IActionResult Create()
@@ -52,9 +97,9 @@ namespace coffeterija.web.Controllers
                 request.ImagePath = HandleNewImage(request.Image);
                 createCommand.Execute(request);
                 return RedirectToAction(nameof(Index));
-            } catch(Exception e)
+            } catch(Exception)
             {
-                TempData["error"] = "Something went wrong when submitting the form" + e.Message;
+                TempData["error"] = "Something went wrong when submitting the form";
                 LoadData();
                 return View();
             }
@@ -116,7 +161,7 @@ namespace coffeterija.web.Controllers
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).FullName;
             var uploadPath = Path.Combine(path, "coffeterija.api", "wwwroot", "Images", fileName);
             file.CopyTo(new FileStream(uploadPath, FileMode.Create));
-            return $"{HttpContext.Request.Host}/Images/{fileName}";
+            return $"localhost:5000/Images/{fileName}";
         }
     }
 }
